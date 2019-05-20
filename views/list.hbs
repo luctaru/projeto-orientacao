@@ -8,6 +8,9 @@
 
 <body>
     
+    <form action="logout" method="GET" accept-charset="utf-8">
+        <input type="submit" value="Logout" />
+    </form>
 
     <h2>INSERIR</h2>
     <p>Inserir Professor</p>
@@ -31,6 +34,19 @@
         <input type="hidden" name="old" value="vazio" />
         <input type="hidden" name="method" value="inserir" />
         <input type="hidden" name="tipo" value="aluno" />
+        <input type="submit" value="Adicionar" />
+    </form>
+
+    <p>Inserir Orientacoes</p>
+    <form name="formInsOri" action="list" method="POST" accept-charset="utf-8">
+        <label for="nome">Nome Orientacao:</label>
+        <input type="text" name="nome" autocomplete="off" value="" id="nome" />
+         <label for="nomeProf">Nome Professor:</label>
+        <input type="text" name="nomeProf" autocomplete="off" value="" id="nomeProf" />
+         <label for="nomeAluno">Nome Aluno:</label>
+        <input type="text" name="nomeAluno" autocomplete="off" value="" id="nomeAluno" />
+        <input type="hidden" name="method" value="inserir" />
+        <input type="hidden" name="tipo" value="orientacao" />
         <input type="submit" value="Adicionar" />
     </form>
 
@@ -62,6 +78,21 @@
         <input type="hidden" name="method" value="editar" />
         <input type="hidden" name="tipo" value="aluno" />
         <input type="submit" value="Editar">
+    </form>
+
+    <p>Editar Orientacoes</p>
+    <form name="formEditOri" action="list" method="POST" accept-charset="utf-8">
+        <label for="old">Nome da Orientacao a ser modificada</label>
+        <input type="text" name="old" autocomplete="off" value="" id="old" />
+        <label for="nome">Nome Orientacao:</label>
+        <input type="text" name="nome" autocomplete="off" value="" id="nome" />
+         <label for="nomeProf">Nome Professor:</label>
+        <input type="text" name="nomeProf" autocomplete="off" value="" id="nomeProf" />
+         <label for="nomeAluno">Nome Aluno:</label>
+        <input type="text" name="nomeAluno" autocomplete="off" value="" id="nomeAluno" />
+        <input type="hidden" name="method" value="editar" />
+        <input type="hidden" name="tipo" value="orientacao" />
+        <input type="submit" value="Editar" />
     </form>
 
     <h2>PROFESSORES</h2>

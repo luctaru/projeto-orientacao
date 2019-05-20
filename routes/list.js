@@ -6,13 +6,19 @@ var orientacaoDAO = require('../controller/OrientacaoDAO');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  professorDAO.find().then((professor) =>{
-    alunoDAO.find().then((aluno) => {
-        orientacaoDAO.find().then((orientacao) => {
-            res.render('list', {professor: professor, aluno: aluno, orientacao: orientacao});
-        });
-    });    
-  });
+    if (req.session && req.session.login) {
+        professorDAO.find().then((professor) =>{
+            alunoDAO.find().then((aluno) => {
+                orientacaoDAO.find().then((orientacao) => {
+                    res.render('list', {professor: professor, aluno: aluno, orientacao: orientacao});
+                });
+            });    
+          });
+    } else {
+        res.redirect('/login');
+    }
+      
+  
 });
 
 router.post('/', (req, res) => {
@@ -20,10 +26,9 @@ router.post('/', (req, res) => {
         method = req.body.method,
         ra = req.body.ra,
         tipo = req.body.tipo,
-        old = req.body.old;
-
-    console.log("aparece post")    
-    console.log(old);
+        old = req.body.old,
+        nomeProf = req.body.nomeProf,
+        nomeAluno = req.body.nomeAluno;
 
     if (method === 'inserir' && tipo === 'professor') {
         professorDAO.insert(nome, ra).then((conn) => {
@@ -34,6 +39,18 @@ router.post('/', (req, res) => {
     if (method === 'inserir' && tipo === 'aluno') {
         alunoDAO.insert(nome, ra).then((conn) => {
             res.redirect('/list');
+        });
+    }
+
+    if (method === 'inserir' && tipo === 'orientacao') {
+        console.log('entrou');
+        professorDAO.findOne(nomeProf).then((prof) => {
+            console.log(prof);
+            alunoDAO.findOne(nomeAluno).then((aluno) => {
+                orientacaoDAO.insert(nome, prof, aluno).then((conn) => {
+                    res.redirect('/list');
+                });
+            });
         });
     }
 
@@ -64,6 +81,17 @@ router.post('/', (req, res) => {
     if(method === 'editar' && tipo === 'aluno'){
         alunoDAO.update(old, nome, ra).then((conn) => {
             res.redirect('/list');
+        });
+    }
+
+    if (method === 'editar' && tipo === 'orientacao') {
+        console.log('entrou');
+        professorDAO.findOne(nomeProf).then((prof) => {
+            alunoDAO.findOne(nomeAluno).then((aluno) => {
+                orientacaoDAO.update(old, nome, prof, aluno).then((conn) => {
+                    res.redirect('/list');
+                });
+            });
         });
     }
 });

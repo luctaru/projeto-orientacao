@@ -39,4 +39,23 @@ module.exports = class OrientacaoDAO {
                     .toArray();
         }).catch((err) => { throw err; });
     }
+
+    static insert (nome, prof, alu) {
+        return client.connect('mongodb://localhost:27017/mongo-test',
+        {useNewUrlParser: true}).then((client) => {
+            let db = client.db('mongo-test');
+            db.collection('orientacao').insertOne({nome: nome, prof: prof, alu:alu});
+        }).catch((err) => { throw err; });;
+    }
+
+    static update (old, nome, prof, alu) {
+        return client.connect('mongodb://localhost:27017/mongo-test',
+        {useNewUrlParser: true}).then((client) => {
+            let db = client.db('mongo-test');
+            db.collection('orientacao').update(
+                {nome: old}, 
+                {nome: nome, prof: prof, alu: alu}
+            );
+        }).catch((err) => { throw err; });
+    }
 }

@@ -20,38 +20,28 @@ router.post('/login', function(req, res, next) {
         senha = req.body.senha;
 
 
-    if (login === 'admin' && senha === '123') {
-      req.session.login = 'admin';
-      res.write('<h1>Entrada autorizada</h1>');
-      res.end();
-      return ;
-    } else {
-          res.status(403);
-          res.write('<h1>Entrada nao autorizada</h1>');
-          res.end();
-        } 
 
-    // userDAO.find(login, senha).then((user) => {
+    userDAO.find(login, senha).then((user) => {
 
-    //   if(user.login === null){
-    //     res.status(403);
-    //     res.write('<h1>Entrada nao autorizada</h1>');
-    //     res.end();
-    //   }
+      if(user === null) {
+        res.status(403);
+        res.write('<h1>Entrada nao autorizada</h1><form action="login" method="GET" accept-charset="utf-8"><input type="submit" value="Voltar"></form>');
+        res.end();
+      } else if (login === user.login && senha === user.senha) {
+        req.session.login = user.login;
+        res.redirect('/list');
+      } else {
+            res.status(403);
+            res.write('<h1>Entrada nao autorizada</h1><form action="login" method="GET" accept-charset="utf-8"><input type="submit" value="Voltar"></form>');
+            res.end();
+      } 
+    });
 
-    //   if (login === user.login && senha === user.senha) {
-    //     req.session.login = user.login;
-    //     res.write('<h1>Login realizado</h1>');
-    //     res.end();
+});
 
-    //   } else {
-    //     res.status(403);
-    //     res.write('<h1>Entrada nao autorizada</h1>');
-    //     res.end();
-    //   }
-    // });
-    // return ;
-
+router.get('/logout', (req, res) => {
+    delete req.session.login;
+    res.redirect('/login');
 });
 
 module.exports = router;

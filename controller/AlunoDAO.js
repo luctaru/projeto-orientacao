@@ -38,4 +38,13 @@ module.exports = class AlunoDAO {
             );
         }).catch((err) => { throw err; });
     }
+
+    static findOne(nomeAlu){
+        return client.connect('mongodb://localhost:27017/mongo-test',
+        {useNewUrlParser: true}).then((client) => {
+            let db = client.db('mongo-test');
+            return db.collection('aluno')
+                    .findOne({nome: nomeAlu});
+        }).catch((err) => { throw err; });
+    }
 }

@@ -38,4 +38,13 @@ module.exports = class ProfessorDAO {
             );
         }).catch((err) => { throw err; });
     }
+
+    static findOne(nomeProf){
+        return client.connect('mongodb://localhost:27017/mongo-test',
+        {useNewUrlParser: true}).then((client) => {
+            let db = client.db('mongo-test');
+            return db.collection('professor')
+                    .findOne({nome: nomeProf});
+        }).catch((err) => { throw err; });
+    }
 }
