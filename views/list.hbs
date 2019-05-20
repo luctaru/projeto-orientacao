@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Lista de orientadores</title>
+</head>
+
+<body>
+    
+
+    <h2>INSERIR</h2>
+    <p>Inserir Professor</p>
+    <form name="formInsProf" action="list" method="POST" accept-charset="utf-8">
+        <label for="nome">Nome:</label>
+        <input type="text" name="nome" autocomplete="off" value="" id="nome" />
+        <label for="ra">RA:</label>
+        <input type="text" name="ra" autocomplete="off" value="" id="ra" />
+        <input type="hidden" name="old" value="vazio" />
+        <input type="hidden" name="method" value="inserir" />
+        <input type="hidden" name="tipo" value="professor" />
+        <input type="submit" value="Adicionar" />
+    </form>
+
+    <p>Inserir Aluno</p>
+    <form name="formInsAlu" action="list" method="POST" accept-charset="utf-8">
+        <label for="nome">Nome:</label>
+        <input type="text" name="nome" autocomplete="off" value="" id="nome" />
+        <label for="ra">RA:</label>
+        <input type="text" name="ra" autocomplete="off" value="" id="ra" />
+        <input type="hidden" name="old" value="vazio" />
+        <input type="hidden" name="method" value="inserir" />
+        <input type="hidden" name="tipo" value="aluno" />
+        <input type="submit" value="Adicionar" />
+    </form>
+
+    <h2>EDITAR</h2>
+
+    <p>Editar Professor</p>
+    <!--EDITAR-->
+    <form name="formEditProf" action="list" method="POST" accept-charset="utf-8">
+        <label for="old">Nome do Professor a ser modificado</label>
+        <input type="text" name="old" autocomplete="off" value="" id="old" />
+        <label for="nome">Novo Nome:</label>
+        <input type="text" name="nome" autocomplete="off" value="" id="nome" />
+        <label for="ra">Novo RA:</label>
+        <input type="text" name="ra" autocomplete="off" value="" id="ra" />
+        <input type="hidden" name="method" value="editar" />
+        <input type="hidden" name="tipo" value="professor" />
+        <input type="submit" value="Editar">
+    </form>
+
+    <p>Editar Aluno</p>
+    <!--EDITAR-->
+    <form name="formEditAlu" action="list" method="POST" accept-charset="utf-8">
+        <label for="old">Nome do Aluno a ser modificado</label>
+        <input type="text" name="old" autocomplete="off" value="" id="old" />
+        <label for="nome">Novo Nome:</label>
+        <input type="text" name="nome" autocomplete="off" value="" id="nome" />
+        <label for="ra">Novo RA:</label>
+        <input type="text" name="ra" autocomplete="off" value="" id="ra" />
+        <input type="hidden" name="method" value="editar" />
+        <input type="hidden" name="tipo" value="aluno" />
+        <input type="submit" value="Editar">
+    </form>
+
+    <h2>PROFESSORES</h2>
+    <ul>
+        {{#each professor}}
+        <br />
+        <li>Nome: <form action="orient" method="POST" accept-charset="utf-8">
+                <input type="hidden" name="nome" value="{{nome}}" />
+                <input type="hidden" name="id" value="{{_id}}" />
+                <input type="hidden" name="ra" value="{{ra}}" />
+                <input type="hidden" name="method" value="orient" />
+                <input type="hidden" name="tipo" value="professor" />
+                <input type="submit" value="{{nome}}">
+            </form>
+            RA: {{ra}}
+            <form action="list" method="POST" accept-charset="utf-8">
+                <input type="hidden" name="nome" value="{{nome}}" />
+                <input type="hidden" name="old" value="{{nome}}" />
+                <input type="hidden" name="ra" value="{{ra}}" />
+                <input type="hidden" name="method" value="deletar" />
+                <input type="hidden" name="tipo" value="professor" />
+                <input type="submit" value="Deletar">
+            </form>
+        </li>
+        {{/each}}
+    </ul>
+
+    <h2>ALUNOS</h2>
+    <ul>
+        {{#each aluno}}
+        <br />
+        <li>Nome: <form action="orient" method="POST" accept-charset="utf-8">
+                <input type="hidden" name="nome" value="{{nome}}" />
+                <input type="hidden" name="id" value="{{_id}}" />
+                <input type="hidden" name="ra" value="{{ra}}" />
+                <input type="hidden" name="method" value="orient" />
+                <input type="hidden" name="tipo" value="aluno" />
+                <input type="submit" value="{{nome}}">
+                </form>
+        RA: {{ra}}
+
+            <form action="list" method="POST" accept-charset="utf-8">
+                <input type="hidden" name="nome" value="{{nome}}" />
+                <input type="hidden" name="old" value="{{nome}}" />
+                <input type="hidden" name="ra" value="{{ra}}" />
+                <input type="hidden" name="method" value="deletar" />
+                <input type="hidden" name="tipo" value="aluno" />
+                <input type="submit" value="Deletar">
+            </form>
+
+        </li>
+        {{/each}}
+    </ul>
+
+    <h2>ORIENTACOES</h2>
+    <ul>
+        {{#each orientacao}}
+        <li>Nome: {{nome}}<br />Professor: {{prof.nome}}<br />Aluno: {{alu.nome}}</li>
+        <form action="list" method="POST" accept-charset="utf-8">
+            <input type="hidden" name="nome" value="{{nome}}" />
+            <input type="hidden" name="method" value="deletar" />
+            <input type="hidden" name="tipo" value="orientacao" />
+            <input type="submit" value="Deletar">
+        </form>
+        {{/each}}
+    </ul>
+    {{!-- <script type="text/javascript" src="../public/javascripts/validate.js"></script> --}}
+</body>
+
+</html>
