@@ -102,7 +102,7 @@ router.post('/', (req, res) => {
                 res.render('error', {error: 'Aluno não encontrado'});
                 return ;
             }
-            orientacaoDAO.findByProfName(old).then((aluno) => {     
+            orientacaoDAO.findByAluName(old).then((aluno) => {     
                 for (let i = 0; i < aluno.length; i++) {
                     aluno[i].alu.nome = nome;
                     orientacaoDAO.update(aluno[i].nome, aluno[i].nome, aluno[i].prof, aluno[i].alu);
