@@ -13,15 +13,15 @@ router.post('/', (req, res) => {
         tipo = req.body.tipo,
         old = req.body.old;
 
-            if (tipo === 'professor') {
-                orientacaoDAO.findByProfName(nome).then((orientacao) => {
-                    res.render('orient', { orientacao: orientacao });
-                });
-            }else if (tipo === 'aluno') {
-                orientacaoDAO.findByAluName(nome).then((orientacao) => {
-                    res.render('orient', { orientacao: orientacao });
-                });
-            }
+    if (tipo === 'professor') {
+        orientacaoDAO.findByProfName(nome).then((orientacao) => {
+            res.render('orient', { orientacao: orientacao });
+        });
+    }else if (tipo === 'aluno') {
+        orientacaoDAO.findByAluName(nome).then((orientacao) => {
+            res.render('orient', { orientacao: orientacao });
+        });
+    }
         
 });
 

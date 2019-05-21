@@ -32,7 +32,7 @@ module.exports = class ProfessorDAO {
         return client.connect('mongodb://localhost:27017/mongo-test',
         {useNewUrlParser: true}).then((client) => {
             let db = client.db('mongo-test');
-            db.collection('professor').update(
+            return db.collection('professor').update(
                 {nome: old}, 
                 {nome: nome, ra: ra}
             );

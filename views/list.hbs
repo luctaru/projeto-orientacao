@@ -7,14 +7,100 @@
 </head>
 
 <body>
-    
+    <script type="text/javascript">
+        function requiredInsProf() {
+            var empt = document.forms["formInsProf"]["ra"].value;
+            var empt2 = document.forms["formInsProf"]["nome"].value;
+
+            if (empt == "" || empt2 == "") {
+                alert("CAMPOS INVÁLIDOS");
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+        function requiredInsAlu() {
+            var empt = document.forms["formInsAlu"]["ra"].value;
+            var empt2 = document.forms["formInsAlu"]["nome"].value;
+
+            if (empt == "" || empt2 == "") {
+                alert("CAMPOS INVÁLIDOS");
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+
+        function requiredInsOri() {
+            var empt = document.forms["formInsOri"]["nome"].value;
+            var empt2 = document.forms["formInsOri"]["nomeProf"].value;
+            var empt3 = document.forms["formInsOri"]["nomeAluno"].value;
+
+            if (empt == "" || empt2 == "" || empt3 == "") {
+                alert("CAMPOS INVÁLIDOS");
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+
+        function requiredEditProf() {
+            var empt = document.forms["formEditProf"]["ra"].value;
+            var empt2 = document.forms["formEditProf"]["nome"].value;
+            var empt3 = document.forms["formEditProf"]["old"].value;
+
+            if (empt == "" || empt2 == "" || empt3 == "") {
+                alert("CAMPOS INVÁLIDOS");
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+        function requiredEditAlu() {
+            var empt = document.forms["formEditAlu"]["ra"].value;
+            var empt2 = document.forms["formEditAlu"]["nome"].value;
+            var empt3 = document.forms["formEditAlu"]["old"].value;
+
+            if (empt == "" || empt2 == "" || empt3 == "") {
+                alert("CAMPOS INVÁLIDOS");
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+
+        function requiredEditOri() {
+            var empt = document.forms["formEditOri"]["nomeProf"].value;
+            var empt2 = document.forms["formEditOri"]["nome"].value;
+            var empt3 = document.forms["formEditOri"]["old"].value;
+            var empt4 = document.forms["formEditOri"]["nomeAluno"].value;
+
+            if (empt == "" || empt2 == "" || empt3 == "" || empt4 == "") {
+                alert("CAMPOS INVÁLIDOS");
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+
+        function deleteAlert() {
+            alert("DELETADO COM SUCESSO");
+            return true;
+        }
+    </script>
     <form action="logout" method="GET" accept-charset="utf-8">
         <input type="submit" value="Logout" />
     </form>
 
     <h2>INSERIR</h2>
     <p>Inserir Professor</p>
-    <form name="formInsProf" action="list" method="POST" accept-charset="utf-8">
+    <form name="formInsProf" action="list" method="POST" accept-charset="utf-8" onsubmit="return requiredInsProf()">
         <label for="nome">Nome:</label>
         <input type="text" name="nome" autocomplete="off" value="" id="nome" />
         <label for="ra">RA:</label>
@@ -26,7 +112,7 @@
     </form>
 
     <p>Inserir Aluno</p>
-    <form name="formInsAlu" action="list" method="POST" accept-charset="utf-8">
+    <form name="formInsAlu" action="list" method="POST" accept-charset="utf-8" onsubmit="return requiredInsAlu()">
         <label for="nome">Nome:</label>
         <input type="text" name="nome" autocomplete="off" value="" id="nome" />
         <label for="ra">RA:</label>
@@ -38,12 +124,12 @@
     </form>
 
     <p>Inserir Orientacoes</p>
-    <form name="formInsOri" action="list" method="POST" accept-charset="utf-8">
+    <form name="formInsOri" action="list" method="POST" accept-charset="utf-8" onsubmit="return requiredInsOri()">
         <label for="nome">Nome Orientacao:</label>
         <input type="text" name="nome" autocomplete="off" value="" id="nome" />
-         <label for="nomeProf">Nome Professor:</label>
+        <label for="nomeProf">Nome Professor:</label>
         <input type="text" name="nomeProf" autocomplete="off" value="" id="nomeProf" />
-         <label for="nomeAluno">Nome Aluno:</label>
+        <label for="nomeAluno">Nome Aluno:</label>
         <input type="text" name="nomeAluno" autocomplete="off" value="" id="nomeAluno" />
         <input type="hidden" name="method" value="inserir" />
         <input type="hidden" name="tipo" value="orientacao" />
@@ -54,7 +140,7 @@
 
     <p>Editar Professor</p>
     <!--EDITAR-->
-    <form name="formEditProf" action="list" method="POST" accept-charset="utf-8">
+    <form name="formEditProf" action="list" method="POST" accept-charset="utf-8" onsubmit="return requiredEditProf()">
         <label for="old">Nome do Professor a ser modificado</label>
         <input type="text" name="old" autocomplete="off" value="" id="old" />
         <label for="nome">Novo Nome:</label>
@@ -68,7 +154,7 @@
 
     <p>Editar Aluno</p>
     <!--EDITAR-->
-    <form name="formEditAlu" action="list" method="POST" accept-charset="utf-8">
+    <form name="formEditAlu" action="list" method="POST" accept-charset="utf-8" onsubmit="return requiredEditAlu()">
         <label for="old">Nome do Aluno a ser modificado</label>
         <input type="text" name="old" autocomplete="off" value="" id="old" />
         <label for="nome">Novo Nome:</label>
@@ -81,14 +167,14 @@
     </form>
 
     <p>Editar Orientacoes</p>
-    <form name="formEditOri" action="list" method="POST" accept-charset="utf-8">
+    <form name="formEditOri" action="list" method="POST" accept-charset="utf-8" onsubmit="return requiredEditOri()">
         <label for="old">Nome da Orientacao a ser modificada</label>
         <input type="text" name="old" autocomplete="off" value="" id="old" />
         <label for="nome">Nome Orientacao:</label>
         <input type="text" name="nome" autocomplete="off" value="" id="nome" />
-         <label for="nomeProf">Nome Professor:</label>
+        <label for="nomeProf">Nome Professor:</label>
         <input type="text" name="nomeProf" autocomplete="off" value="" id="nomeProf" />
-         <label for="nomeAluno">Nome Aluno:</label>
+        <label for="nomeAluno">Nome Aluno:</label>
         <input type="text" name="nomeAluno" autocomplete="off" value="" id="nomeAluno" />
         <input type="hidden" name="method" value="editar" />
         <input type="hidden" name="tipo" value="orientacao" />
@@ -108,7 +194,7 @@
                 <input type="submit" value="{{nome}}">
             </form>
             RA: {{ra}}
-            <form action="list" method="POST" accept-charset="utf-8">
+            <form action="list" method="POST" accept-charset="utf-8" onsubmit="return deleteAlert()">
                 <input type="hidden" name="nome" value="{{nome}}" />
                 <input type="hidden" name="old" value="{{nome}}" />
                 <input type="hidden" name="ra" value="{{ra}}" />
@@ -131,10 +217,10 @@
                 <input type="hidden" name="method" value="orient" />
                 <input type="hidden" name="tipo" value="aluno" />
                 <input type="submit" value="{{nome}}">
-                </form>
-        RA: {{ra}}
+            </form>
+            RA: {{ra}}
 
-            <form action="list" method="POST" accept-charset="utf-8">
+            <form action="list" method="POST" accept-charset="utf-8" onsubmit="return deleteAlert()">
                 <input type="hidden" name="nome" value="{{nome}}" />
                 <input type="hidden" name="old" value="{{nome}}" />
                 <input type="hidden" name="ra" value="{{ra}}" />
@@ -151,7 +237,7 @@
     <ul>
         {{#each orientacao}}
         <li>Nome: {{nome}}<br />Professor: {{prof.nome}}<br />Aluno: {{alu.nome}}</li>
-        <form action="list" method="POST" accept-charset="utf-8">
+        <form action="list" method="POST" accept-charset="utf-8" onsubmit="return deleteAlert()">
             <input type="hidden" name="nome" value="{{nome}}" />
             <input type="hidden" name="method" value="deletar" />
             <input type="hidden" name="tipo" value="orientacao" />
@@ -159,7 +245,7 @@
         </form>
         {{/each}}
     </ul>
-    {{!-- <script type="text/javascript" src="../public/javascripts/validate.js"></script> --}}
+
 </body>
 
 </html>

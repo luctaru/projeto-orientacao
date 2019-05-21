@@ -45,8 +45,15 @@ router.post('/', (req, res) => {
     if (method === 'inserir' && tipo === 'orientacao') {
         console.log('entrou');
         professorDAO.findOne(nomeProf).then((prof) => {
-            console.log(prof);
+            if (prof === null) {
+                res.render('error', {error: 'Professor não encontrado'});
+                return ;
+            }
             alunoDAO.findOne(nomeAluno).then((aluno) => {
+                if (aluno === null) {
+                    res.render('error', {error: 'Aluno não encontrado'});
+                    return ;
+                }
                 orientacaoDAO.insert(nome, prof, aluno).then((conn) => {
                     res.redirect('/list');
                 });
@@ -74,21 +81,54 @@ router.post('/', (req, res) => {
 
     if (method === 'editar' && tipo === 'professor'){
         professorDAO.update(old, nome, ra).then((conn) => {
+            if(conn.result.nModified === 0){
+                res.render('error', {error: 'Professor não encontrado'});
+                return ;
+            }
+            orientacaoDAO.findByProfName(old).then((profe) => {     
+                for (let i = 0; i < profe.length; i++) {
+                    profe[i].prof.nome = nome;
+                    orientacaoDAO.update(profe[i].nome, profe[i].nome, profe[i].prof, profe[i].alu);
+                }
+                
+            });
             res.redirect('/list');
         });
     }
 
     if(method === 'editar' && tipo === 'aluno'){
         alunoDAO.update(old, nome, ra).then((conn) => {
+            if(conn.result.nModified === 0){
+                res.render('error', {error: 'Aluno não encontrado'});
+                return ;
+            }
+            orientacaoDAO.findByProfName(old).then((aluno) => {     
+                for (let i = 0; i < aluno.length; i++) {
+                    aluno[i].alu.nome = nome;
+                    orientacaoDAO.update(aluno[i].nome, aluno[i].nome, aluno[i].prof, aluno[i].alu);
+                }
+                
+            });
             res.redirect('/list');
         });
     }
 
     if (method === 'editar' && tipo === 'orientacao') {
-        console.log('entrou');
         professorDAO.findOne(nomeProf).then((prof) => {
+            if (prof === null) {
+                res.render('error', {error: 'Professor não encontrado'});
+                return ;
+            }
             alunoDAO.findOne(nomeAluno).then((aluno) => {
+                if (aluno === null) {
+                    res.render('error', {error: 'Aluno não encontrado'});
+                    return ;
+                }
                 orientacaoDAO.update(old, nome, prof, aluno).then((conn) => {
+                    if (conn === null) {
+                        res.render('error', {error: 'Orientacao não encontrado'});
+                        return ;
+                    }
                     res.redirect('/list');
                 });
             });
